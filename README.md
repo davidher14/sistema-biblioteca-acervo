@@ -1,4 +1,4 @@
-# Folha — Gestão de biblioteca
+# Acervo — Gestão de biblioteca
 
 Front-end em React 18 + TypeScript + Vite para gerenciamento do acervo. As etapas entregues incluem autenticação, navegação protegida, painel inicial, gerenciamento de livros, autores, categorias e usuários, empréstimos, devoluções e reservas.
 
@@ -13,6 +13,14 @@ npm run dev
 ```
 
 Abra `http://localhost:5173`. Para validar a compilação de produção, rode `npm run build`.
+
+## Versão online
+
+A cada atualização enviada para a branch `main`, o GitHub Actions publica o front-end no GitHub Pages:
+
+<https://davidher14.github.io/sistema-biblioteca-acervo/>
+
+Essa publicação usa o modo de demonstração, sem backend. Cada visitante tem seus próprios dados no navegador; contas, empréstimos e alterações não são compartilhados entre dispositivos. A demonstração não deve ser usada para dados reais ou sensíveis. Quando o backend estiver pronto, atualize o workflow para configurar `VITE_USE_MOCK=false` e informar a URL pública da API.
 
 ## Configuração
 
