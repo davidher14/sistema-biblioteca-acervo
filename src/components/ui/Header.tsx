@@ -7,9 +7,10 @@ interface HeaderProps {
   onLogout: () => void;
   logoutLabel?: string;
   leading?: ReactNode;
+  trailing?: ReactNode;
 }
 
-export function Header({ userName, profile, onLogout, logoutLabel = 'Sair', leading }: HeaderProps) {
+export function Header({ userName, profile, onLogout, logoutLabel = 'Sair', leading, trailing }: HeaderProps) {
   const initials = userName
     .trim()
     .split(/\s+/)
@@ -30,10 +31,13 @@ export function Header({ userName, profile, onLogout, logoutLabel = 'Sair', lead
           <span className="text-xs text-text-muted">{profile}</span>
         </div>
       </div>
-      <button type="button" onClick={onLogout} className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-medium text-primary transition-colors hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus sm:px-4">
-        <LogOut className="size-4" aria-hidden="true" />
-        {logoutLabel}
-      </button>
+      <div className="flex shrink-0 items-center gap-2">
+        {trailing}
+        <button type="button" onClick={onLogout} className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-medium text-primary transition-colors hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus sm:px-4">
+          <LogOut className="size-4" aria-hidden="true" />
+          {logoutLabel}
+        </button>
+      </div>
     </header>
   );
 }

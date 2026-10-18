@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ArrowDown, ArrowUp, ArrowUpDown, BookOpen, CalendarDays, Check, ChevronLeft, ChevronRight, CirclePlus, Clock3, UserRound, X } from 'lucide-react';
@@ -49,9 +49,7 @@ export default function LoansPage() {
   const initialBook = isBook(requestedBook) ? requestedBook : null;
   const [status, setStatus] = useState<LoanStatus | ''>(() => {
     const initialStatus = searchParams.get('status');
-    return initialStatus === 'ativo' || initialStatus === 'devolvido' || initialStatus === 'atrasado'
-      ? initialStatus
-      : '';
+    return isLoanStatus(initialStatus) ? initialStatus : '';
   });
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -59,6 +57,12 @@ export default function LoansPage() {
   const [sortBy, setSortBy] = useState<LoanFilters['ordenar_por']>('data_emprestimo');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [modalOpen, setModalOpen] = useState(() => initialBook !== null);
+
+  useEffect(() => {
+    const nextStatus = searchParams.get('status');
+    setStatus(isLoanStatus(nextStatus) ? nextStatus : '');
+    setPage(1);
+  }, [searchParams]);
 
   const filters: LoanFilters = useMemo(() => ({
     usuario_id: isAdmin ? undefined : user?.id,
@@ -163,7 +167,7 @@ export default function LoansPage() {
   }
 
   function changeStatus(value: string) {
-    const nextStatus = value === 'ativo' || value === 'devolvido' || value === 'atrasado' ? value : '';
+    const nextStatus = isLoanStatus(value) ? value : '';
     setStatus(nextStatus);
     setSearchParams((current) => {
       const next = new URLSearchParams(current);
@@ -172,6 +176,10 @@ export default function LoansPage() {
       return next;
     }, { replace: true });
     setPage(1);
+  }
+
+  function isLoanStatus(value: string | null): value is LoanStatus {
+    return value === 'solicitado' || value === 'ativo' || value === 'devolvido' || value === 'atrasado' || value === 'recusado';
   }
 
   function closeLoanModal() {

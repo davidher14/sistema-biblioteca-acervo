@@ -26,6 +26,7 @@ import {
   DialogTrigger,
 } from '../components/ui/Dialog';
 import { Header } from '../components/ui/Header';
+import { NotificationsBell } from '../components/NotificationsBell';
 import { Sidebar } from '../components/ui/Sidebar';
 import { BrandLogo } from '../components/ui/BrandLogo';
 import { cn } from '../lib/utils';
@@ -158,6 +159,7 @@ export default function AppLayout() {
             userName={user?.nome ?? 'Usuário'}
             profile={isAdmin ? 'Administrador' : 'Usuário'}
             onLogout={() => { void handleLogout(); }}
+            trailing={user ? <NotificationsBell key={user.id} user={user} /> : null}
             leading={(
               <DialogTrigger asChild>
                 <Button

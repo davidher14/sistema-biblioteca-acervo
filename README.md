@@ -45,6 +45,8 @@ Defina `VITE_USE_MOCK=true` e reinicie o servidor Vite. A autenticação, livros
 
 O estado demonstrativo pode ser removido limpando os dados locais do site (`biblioteca_mock_usuario`, `biblioteca_mock_livros`, `biblioteca_mock_autores`, `biblioteca_mock_categorias`, `biblioteca_mock_usuarios`, `biblioteca_mock_emprestimos` e `biblioteca_mock_reservas`).
 
+O sino no cabeçalho mostra ao administrador a quantidade de solicitações pendentes. Para leitores, ele registra aprovações e recusas detectadas enquanto a conta está sendo acompanhada e mantém os avisos como lidos/não lidos no navegador. A lista é atualizada periodicamente; no modo demonstração, os dados e notificações continuam isolados por navegador e dispositivo.
+
 ## Arquitetura
 
 - **TypeScript**: tipos compartilhados para usuário, livro, filtros e erros da API.
